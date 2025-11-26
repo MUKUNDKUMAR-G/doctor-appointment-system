@@ -1,0 +1,73 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password: password
+    driver-class-name: org.h2.Driver
+  
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        format_sql: false
+        jdbc:
+          batch_size: 20
+        order_inserts: true
+        order_updates: true
+  
+  h2:
+    console:
+      enabled: true
+  
+  flyway:
+    enabled: false
+
+jwt:
+  secret: testSecretKey123456789012345678901234567890
+  expiration: 900000
+  refresh-expiration: 604800000
+
+# CORS Configuration for tests
+cors:
+  allowed-origins: http://localhost:3000,http://localhost:5173
+  allowed-methods: GET,POST,PUT,DELETE,OPTIONS
+  allowed-headers: Authorization,Content-Type,X-Requested-With,Accept,Origin,Access-Control-Request-Method,Access-Control-Request-Headers
+  allow-credentials: true
+  max-age: 3600
+
+# Security Configuration for tests
+security:
+  https-only: false
+  max-login-attempts: 5
+  lockout-duration-minutes: 15
+  enable-rate-limiting: false
+  rate-limit-requests-per-minute: 100
+  password-policy:
+    min-length: 8
+    require-uppercase: true
+    require-lowercase: true
+    require-digits: true
+    require-special-chars: true
+  session:
+    timeout-minutes: 30
+    max-concurrent-sessions: 3
+
+# Notification Configuration for tests
+app:
+  notification:
+    email:
+      enabled: false
+    sms:
+      enabled: false
+    from-email: test@example.com
+    from-name: Test System
+    retry:
+      max-attempts: 1
+      delay-minutes: 1
+
+logging:
+  level:
+    com.healthcare: DEBUG

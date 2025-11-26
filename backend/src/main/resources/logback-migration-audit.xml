@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- Migration Audit Logger Configuration -->
+    
+    <!-- Console appender for development -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+    <!-- File appender for migration audit logs -->
+    <appender name="MIGRATION_AUDIT_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/migration-audit.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- Daily rollover -->
+            <fileNamePattern>logs/migration-audit.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- Keep 90 days of history -->
+            <maxHistory>90</maxHistory>
+            <!-- Total size cap of 10GB -->
+            <totalSizeCap>10GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+    <!-- File appender for security events -->
+    <appender name="SECURITY_AUDIT_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/security-audit.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/security-audit.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+            <totalSizeCap>5GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [SECURITY] %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+    <!-- JSON appender for structured logging (SIEM integration) -->
+    <appender name="MIGRATION_AUDIT_JSON" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/migration-audit.json</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/migration-audit.%d{yyyy-MM-dd}.json</fileNamePattern>
+            <maxHistory>90</maxHistory>
+            <totalSizeCap>10GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <includeMdcKeyName>user</includeMdcKeyName>
+            <includeMdcKeyName>operation</includeMdcKeyName>
+            <includeMdcKeyName>status</includeMdcKeyName>
+            <includeMdcKeyName>version</includeMdcKeyName>
+        </encoder>
+    </appender>
+    
+    <!-- Async appender for better performance -->
+    <appender name="ASYNC_MIGRATION_AUDIT" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>512</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <appender-ref ref="MIGRATION_AUDIT_FILE" />
+        <appender-ref ref="MIGRATION_AUDIT_JSON" />
+    </appender>
+    
+    <appender name="ASYNC_SECURITY_AUDIT" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>512</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <appender-ref ref="SECURITY_AUDIT_FILE" />
+    </appender>
+    
+    <!-- Migration audit logger -->
+    <logger name="MIGRATION_AUDIT" level="INFO" additivity="false">
+        <appender-ref ref="ASYNC_MIGRATION_AUDIT" />
+        <appender-ref ref="CONSOLE" />
+    </logger>
+    
+    <!-- Security audit logger -->
+    <logger name="SECURITY_AUDIT" level="INFO" additivity="false">
+        <appender-ref ref="ASYNC_SECURITY_AUDIT" />
+        <appender-ref ref="CONSOLE" />
+    </logger>
+    
+    <!-- Migration package loggers -->
+    <logger name="com.healthcare.appointmentsystem.migration" level="INFO" />
+    
+    <!-- Root logger -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+    </root>
+</configuration>

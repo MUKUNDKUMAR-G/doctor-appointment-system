@@ -1,0 +1,29 @@
+# Temporary profile to fix schema issues
+# Run with: mvn spring-boot:run -Dspring-boot.run.profiles=quickfix
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update  # Let Hibernate create missing tables
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
+  
+  flyway:
+    enabled: true  # Keep Flyway enabled but let it baseline
+    baseline-on-migrate: true
+    baseline-version: 0
+    
+# Disable migration features temporarily
+migration:
+  auto-repair: false  # Don't auto-repair during quickfix
+  backup-before-migration: false  # Don't backup during quickfix
+  validate-naming-conventions: false
+  backup-cleanup-enabled: false
+    
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.tool.schema: DEBUG
+    org.flywaydb: DEBUG

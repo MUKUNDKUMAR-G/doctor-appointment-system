@@ -1,0 +1,162 @@
+spring:
+  application:
+    name: appointment-system
+  
+  datasource:
+    url: jdbc:mysql://localhost:3306/appointment_system?useSSL=true&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: ${DB_USERNAME:appointment_user}
+    password: ${DB_PASSWORD:appointment_password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+  
+  flyway:
+    baseline-on-migrate: true
+    baseline-version: 0
+  
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 5MB
+      max-request-size: 5MB
+  
+  security:
+    user:
+      name: admin
+      password: admin
+      roles: ADMIN
+
+server:
+  port: ${SERVER_PORT:8080}
+  ssl:
+    enabled: ${SSL_ENABLED:false}
+    key-store: ${SSL_KEYSTORE_PATH:classpath:keystore.p12}
+    key-store-password: ${SSL_KEYSTORE_PASSWORD:changeit}
+    key-store-type: PKCS12
+    key-alias: ${SSL_KEY_ALIAS:appointment-system}
+  error:
+    include-message: never
+    include-binding-errors: never
+    include-stacktrace: never
+    include-exception: false
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+    min-response-size: 1024
+
+# JWT Configuration
+jwt:
+  secret: ${JWT_SECRET:mySecretKey123456789012345678901234567890}
+  expiration: 900000 # 15 minutes in milliseconds
+  refresh-expiration: 604800000 # 7 days in milliseconds
+  issuer: ${JWT_ISSUER:appointment-system}
+  audience: ${JWT_AUDIENCE:appointment-system-users}
+
+# CORS Configuration
+cors:
+  allowed-origins: ${CORS_ORIGINS:http://localhost:3000,http://localhost:5173}
+  allowed-methods: GET,POST,PUT,DELETE,OPTIONS
+  allowed-headers: Authorization,Content-Type,X-Requested-With,Accept,Origin,Access-Control-Request-Method,Access-Control-Request-Headers
+  allow-credentials: true
+  max-age: 3600
+
+# Security Configuration
+security:
+  https-only: ${SECURITY_HTTPS_ONLY:false}
+  max-login-attempts: ${SECURITY_MAX_LOGIN_ATTEMPTS:5}
+  lockout-duration-minutes: ${SECURITY_LOCKOUT_DURATION:15}
+  enable-rate-limiting: ${SECURITY_RATE_LIMITING:false}
+  rate-limit-requests-per-minute: ${SECURITY_RATE_LIMIT:100}
+  password-policy:
+    min-length: 8
+    require-uppercase: true
+    require-lowercase: true
+    require-digits: true
+    require-special-chars: true
+  session:
+    timeout-minutes: 30
+    max-concurrent-sessions: 3
+
+# Notification Configuration
+app:
+  notification:
+    email:
+      enabled: ${NOTIFICATION_EMAIL_ENABLED:true}
+      smtp:
+        host: ${SMTP_HOST:smtp.gmail.com}
+        port: ${SMTP_PORT:587}
+        username: ${SMTP_USERNAME:}
+        password: ${SMTP_PASSWORD:}
+        auth: true
+        starttls: true
+    sms:
+      enabled: ${NOTIFICATION_SMS_ENABLED:false}
+      provider: ${SMS_PROVIDER:twilio}
+      twilio:
+        account-sid: ${TWILIO_ACCOUNT_SID:}
+        auth-token: ${TWILIO_AUTH_TOKEN:}
+        from-number: ${TWILIO_FROM_NUMBER:}
+    from-email: ${NOTIFICATION_FROM_EMAIL:noreply@healthcareapp.com}
+    from-name: ${NOTIFICATION_FROM_NAME:Healthcare Appointment System}
+    retry:
+      max-attempts: ${NOTIFICATION_MAX_RETRIES:3}
+      delay-minutes: ${NOTIFICATION_RETRY_DELAY:5}
+
+# Migration Management Configuration
+migration:
+  auto-repair: ${MIGRATION_AUTO_REPAIR:true}
+  validation-timeout: ${MIGRATION_VALIDATION_TIMEOUT:30}
+  max-retry-attempts: ${MIGRATION_MAX_RETRY_ATTEMPTS:3}
+  backup-before-migration: ${MIGRATION_BACKUP_BEFORE:true}
+
+# Actuator Configuration
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+      base-path: /actuator
+  endpoint:
+    health:
+      show-details: when-authorized
+      show-components: when-authorized
+  health:
+    defaults:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    tags:
+      application: ${spring.application.name}
+
+# File Upload Configuration
+file:
+  upload:
+    dir: ${FILE_UPLOAD_DIR:uploads/avatars}
+    base-url: ${FILE_UPLOAD_BASE_URL:http://localhost:8080/uploads/avatars}
+    max-file-size: 5MB
+    max-request-size: 5MB
+
+# Logging
+logging:
+  level:
+    com.healthcare: DEBUG
+    com.healthcare.appointmentsystem.migration: INFO
+    migration.alerts: INFO
+    org.springframework.security: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.flywaydb: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/appointment-system.log

@@ -1,0 +1,52 @@
+# Configuration for emergency repair profile
+# This profile is used when running the emergency repair script
+
+spring:
+  application:
+    name: appointment-system-repair
+  
+  # Use the same datasource configuration as the main application
+  datasource:
+    url: jdbc:mysql://localhost:3306/appointment_system?useSSL=true&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: ${DB_USERNAME:appointment_user}
+    password: ${DB_PASSWORD:appointment_password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  
+  # Disable JPA during repair to avoid conflicts
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+  
+  # Flyway configuration for repair operations
+  flyway:
+    baseline-on-migrate: true
+    baseline-version: 0
+    validate-on-migrate: false  # Disable validation during repair
+    clean-disabled: true        # Prevent accidental data loss
+    locations: classpath:db/migration
+
+# Disable security during repair
+security:
+  basic:
+    enabled: false
+
+# Minimal logging for repair operations
+logging:
+  level:
+    com.healthcare.appointmentsystem.migration: INFO
+    org.flywaydb: INFO
+    org.springframework: WARN
+    org.hibernate: WARN
+  pattern:
+    console: "%d{HH:mm:ss} [REPAIR] %msg%n"
+
+# Disable web server during repair
+server:
+  port: -1
+
+# Migration repair specific settings
+migration:
+  auto-repair: true
+  validation-timeout: 60  # Allow more time for repair operations
+  max-retry-attempts: 1   # Don't retry during emergency repair

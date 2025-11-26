@@ -1,0 +1,167 @@
+spring:
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:appointment_system}?useSSL=true&requireSSL=true&serverTimezone=UTC&allowPublicKeyRetrieval=false&useUnicode=true&characterEncoding=UTF-8
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: ${DB_POOL_MAX_SIZE:20}
+      minimum-idle: ${DB_POOL_MIN_IDLE:5}
+      connection-timeout: ${DB_CONNECTION_TIMEOUT:30000}
+      idle-timeout: ${DB_IDLE_TIMEOUT:600000}
+      max-lifetime: ${DB_MAX_LIFETIME:1800000}
+      leak-detection-threshold: ${DB_LEAK_DETECTION:60000}
+      pool-name: AppointmentSystemCP
+      auto-commit: false
+      connection-test-query: SELECT 1
+      validation-timeout: 5000
+  
+  jpa:
+    hibernate:
+      ddl-auto: validate
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: false
+        generate_statistics: false
+        jdbc:
+          batch_size: 25
+          order_inserts: true
+          order_updates: true
+        cache:
+          use_second_level_cache: false
+          use_query_cache: false
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+  
+  # Flyway Configuration
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    validate-on-migrate: true
+    out-of-order: false
+    ignore-missing-migrations: false
+    ignore-ignored-migrations: false
+    baseline-version: 0
+    baseline-description: Initial baseline
+    encoding: UTF-8
+    connect-retries: 3
+    connect-retries-interval: 10
+
+server:
+  port: ${SERVER_PORT:8443}
+  ssl:
+    enabled: true
+    key-store: ${SSL_KEYSTORE_PATH}
+    key-store-password: ${SSL_KEYSTORE_PASSWORD}
+    key-store-type: PKCS12
+    key-alias: ${SSL_KEY_ALIAS}
+    protocol: TLS
+    enabled-protocols: TLSv1.2,TLSv1.3
+  error:
+    include-message: never
+    include-binding-errors: never
+    include-stacktrace: never
+    include-exception: false
+
+# Production CORS - more restrictive
+cors:
+  allowed-origins: ${CORS_ORIGINS}
+  allowed-methods: GET,POST,PUT,DELETE,OPTIONS
+  allowed-headers: Authorization,Content-Type,X-Requested-With,Accept,Origin
+  allow-credentials: true
+  max-age: 3600
+
+# Production Security - stricter settings
+security:
+  https-only: true
+  max-login-attempts: 3
+  lockout-duration-minutes: 30
+  enable-rate-limiting: true
+  rate-limit-requests-per-minute: 60
+  password-policy:
+    min-length: 12
+    require-uppercase: true
+    require-lowercase: true
+    require-digits: true
+    require-special-chars: true
+  session:
+    timeout-minutes: 15
+    max-concurrent-sessions: 2
+
+# JWT Configuration for production
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: 600000 # 10 minutes in production
+  refresh-expiration: 86400000 # 1 day in production
+  issuer: ${JWT_ISSUER:appointment-system-prod}
+  audience: ${JWT_AUDIENCE:appointment-system-users}
+
+# Actuator Configuration for Production
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+      base-path: /actuator
+  endpoint:
+    health:
+      show-details: when-authorized
+      show-components: when-authorized
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+  health:
+    diskspace:
+      enabled: true
+      threshold: 1GB
+    db:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
+      percentiles:
+        http.server.requests: 0.5, 0.95, 0.99
+      slo:
+        http.server.requests: 100ms, 500ms, 1s, 2s
+  server:
+    port: 8081
+
+# Migration Management Configuration (Production)
+migration:
+  auto-repair: false  # Require manual intervention in production
+  validation-timeout: 30
+  max-retry-attempts: 3
+  backup-before-migration: true  # Always backup in production
+  backup-directory: ${MIGRATION_BACKUP_DIR:/var/backups/appointment-system}
+  backup-retention-days: 30  # Longer retention in production
+  dry-run-mode: false
+  detailed-logging: false  # Reduce log verbosity in production
+  validate-naming-conventions: true
+  check-dependencies: true
+  backup-cleanup-enabled: true
+  max-backups-to-retain: 50
+
+# Logging for production
+logging:
+  config: classpath:logback-prod.xml
+  level:
+    com.healthcare: INFO
+    com.healthcare.appointmentsystem.migration: INFO
+    org.springframework.security: WARN
+    org.hibernate.SQL: WARN
+    org.springframework.web: WARN
+    org.springframework.boot.actuate: INFO
+    org.flywaydb: INFO
+    SECURITY: INFO
+    REQUEST_TIMING: INFO
+  file:
+    name: /var/log/appointment-system/application.log

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1100">
+  <defs>
+    <style>
+      .box { fill: #fff; stroke: #333; stroke-width: 2; }
+      .title { font-family: Arial; font-size: 20px; font-weight: bold; fill: #1565C0; }
+      .label { font-family: Arial; font-size: 14px; font-weight: bold; fill: #333; }
+      .text { font-family: Arial; font-size: 12px; fill: #555; }
+      .arrow { stroke: #666; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#666" />
+    </marker>
+  </defs>
+  
+  <text x="450" y="30" text-anchor="middle" class="title">Backend Request Processing Flow</text>
+  <text x="450" y="50" text-anchor="middle" class="text">Doctor Search with Filters Example</text>
+  
+  <!-- HTTP Request -->
+  <rect x="200" y="80" width="500" height="60" class="box" fill="#E3F2FD" rx="5"/>
+  <text x="450" y="110" text-anchor="middle" class="label">HTTP Request</text>
+  <text x="450" y="128" text-anchor="middle" class="text">GET /api/doctors?specialty=Cardiology</text>
+  
+  <line x1="450" y1="140" x2="450" y2="180" class="arrow"/>
+  
+  <!-- Security Filter -->
+  <rect x="200" y="190" width="500" height="80" class="box" fill="#FFF3E0" rx="5"/>
+  <text x="450" y="220" text-anchor="middle" class="label">Security Filter Chain</text>
+  <text x="450" y="240" text-anchor="middle" class="text">JWT Token Validation</text>
+  <text x="450" y="258" text-anchor="middle" class="text">Role Authorization</text>
+  
+  <line x1="450" y1="270" x2="450" y2="310" class="arrow"/>
+  
+  <!-- Controller -->
+  <rect x="200" y="320" width="500" height="70" class="box" fill="#F3E5F5" rx="5"/>
+  <text x="450" y="350" text-anchor="middle" class="label">Controller Layer</text>
+  <text x="450" y="370" text-anchor="middle" class="text">DoctorController.getAllDoctors()</text>
+  
+  <line x1="450" y1="390" x2="450" y2="430" class="arrow"/>
+  
+  <!-- Service -->
+  <rect x="200" y="440" width="500" height="70" class="box" fill="#E8F5E9" rx="5"/>
+  <text x="450" y="470" text-anchor="middle" class="label">Service Layer</text>
+  <text x="450" y="490" text-anchor="middle" class="text">DoctorService.searchDoctorsBySpecialty()</text>
+  
+  <line x1="450" y1="510" x2="450" y2="550" class="arrow"/>
+  
+  <!-- Repository -->
+  <rect x="200" y="560" width="500" height="70" class="box" fill="#FFF9C4" rx="5"/>
+  <text x="450" y="590" text-anchor="middle" class="label">Repository Layer</text>
+  <text x="450" y="610" text-anchor="middle" class="text">DoctorRepository.findBySpecialty()</text>
+  
+  <line x1="450" y1="630" x2="450" y2="670" class="arrow"/>
+  
+  <!-- Database -->
+  <rect x="200" y="680" width="500" height="80" class="box" fill="#FFEBEE" rx="5"/>
+  <text x="450" y="710" text-anchor="middle" class="label">MySQL Database</text>
+  <text x="450" y="730" text-anchor="middle" class="text">SELECT * FROM doctors WHERE specialty='Cardiology'</text>
+  <text x="450" y="748" text-anchor="middle" class="text">Uses indexes for optimization</text>
+  
+  <line x1="450" y1="760" x2="450" y2="800" class="arrow"/>
+  
+  <!-- Entity Mapping -->
+  <rect x="200" y="810" width="500" height="60" class="box" fill="#FFF9C4" rx="5"/>
+  <text x="450" y="840" text-anchor="middle" class="label">Entity Mapping</text>
+  <text x="450" y="858" text-anchor="middle" class="text">JPA maps ResultSet to Doctor entities</text>
+  
+  <line x1="450" y1="870" x2="450" y2="910" class="arrow"/>
+  
+  <!-- DTO Conversion -->
+  <rect x="200" y="920" width="500" height="60" class="box" fill="#E8F5E9" rx="5"/>
+  <text x="450" y="950" text-anchor="middle" class="label">DTO Conversion</text>
+  <text x="450" y="968" text-anchor="middle" class="text">Doctor to DoctorResponse DTO</text>
+  
+  <line x1="450" y1="980" x2="450" y2="1020" class="arrow"/>
+  
+  <!-- HTTP Response -->
+  <rect x="200" y="1030" width="500" height="60" class="box" fill="#E1F5FE" rx="5"/>
+  <text x="450" y="1060" text-anchor="middle" class="label">HTTP Response</text>
+  <text x="450" y="1078" text-anchor="middle" class="text">200 OK - JSON Response</text>
+</svg>

@@ -1,0 +1,170 @@
+.review-prompt {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.review-prompt.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.review-prompt-content {
+  position: relative;
+  background: var(--card-background, #ffffff);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  max-width: 320px;
+  text-align: center;
+}
+
+.review-prompt-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+  color: var(--text-secondary, #6b7280);
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.review-prompt-close:hover {
+  background: var(--hover-background, #f3f4f6);
+  color: var(--text-primary, #1f2937);
+}
+
+.review-prompt-close:focus {
+  outline: 2px solid var(--primary-color, #3b82f6);
+  outline-offset: 2px;
+}
+
+.review-prompt-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 16px;
+  background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+  border-radius: 50%;
+  color: white;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(245, 158, 11, 0);
+  }
+}
+
+.review-prompt-title {
+  margin: 0 0 8px 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary, #1f2937);
+}
+
+.review-prompt-description {
+  margin: 0 0 20px 0;
+  font-size: 0.875rem;
+  color: var(--text-secondary, #6b7280);
+  line-height: 1.5;
+}
+
+.review-prompt-button {
+  width: 100%;
+  padding: 12px 24px;
+  background: var(--primary-color, #3b82f6);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.review-prompt-button:hover {
+  background: var(--primary-hover, #2563eb);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.review-prompt-button:focus {
+  outline: 2px solid var(--primary-color, #3b82f6);
+  outline-offset: 2px;
+}
+
+.review-prompt-button:active {
+  transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .review-prompt {
+    bottom: 16px;
+    right: 16px;
+    left: 16px;
+  }
+
+  .review-prompt-content {
+    max-width: none;
+    padding: 20px;
+  }
+
+  .review-prompt-icon {
+    width: 56px;
+    height: 56px;
+  }
+
+  .review-prompt-icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .review-prompt-title {
+    font-size: 1.125rem;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .review-prompt {
+    transition: opacity 0.2s ease;
+    transform: none;
+  }
+
+  .review-prompt.visible {
+    transform: none;
+  }
+
+  .review-prompt-icon {
+    animation: none;
+  }
+
+  .review-prompt-button:hover {
+    transform: none;
+  }
+
+  .review-prompt-button:active {
+    transform: none;
+  }
+}

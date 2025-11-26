@@ -1,0 +1,211 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1400">
+  <defs>
+    <style>
+      .box { fill: #fff; stroke: #333; stroke-width: 2; }
+      .client-box { fill: #E3F2FD; }
+      .gateway-box { fill: #FFF3E0; }
+      .controller-box { fill: #F3E5F5; }
+      .service-box { fill: #E8F5E9; }
+      .repo-box { fill: #FFF9C4; }
+      .db-box { fill: #FFEBEE; }
+      .title-text { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #333; }
+      .label-text { font-family: Arial, sans-serif; font-size: 13px; fill: #555; }
+      .small-text { font-family: Arial, sans-serif; font-size: 11px; fill: #666; }
+      .arrow { stroke: #666; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .section-title { font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; fill: #1976D2; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#666" />
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="600" y="30" text-anchor="middle" class="title-text" style="font-size: 20px; fill: #1976D2;">
+    System Architecture - Online Doctor Appointment System
+  </text>
+  
+  <!-- CLIENT LAYER -->
+  <rect x="50" y="60" width="1100" height="180" class="box client-box" rx="10"/>
+  <text x="600" y="85" text-anchor="middle" class="section-title">CLIENT LAYER</text>
+  
+  <!-- Patient Dashboard -->
+  <rect x="100" y="100" width="280" height="120" class="box" fill="#BBDEFB" rx="5"/>
+  <text x="240" y="125" text-anchor="middle" class="label-text" font-weight="bold">Patient Dashboard</text>
+  <text x="240" y="145" text-anchor="middle" class="small-text">• Search Doctors</text>
+  <text x="240" y="165" text-anchor="middle" class="small-text">• Book Appointments</text>
+  <text x="240" y="185" text-anchor="middle" class="small-text">• View History</text>
+  <text x="240" y="205" text-anchor="middle" class="small-text">• Manage Profile</text>
+  
+  <!-- Doctor Dashboard -->
+  <rect x="420" y="100" width="280" height="120" class="box" fill="#BBDEFB" rx="5"/>
+  <text x="560" y="125" text-anchor="middle" class="label-text" font-weight="bold">Doctor Dashboard</text>
+  <text x="560" y="145" text-anchor="middle" class="small-text">• Manage Availability</text>
+  <text x="560" y="165" text-anchor="middle" class="small-text">• View Appointments</text>
+  <text x="560" y="185" text-anchor="middle" class="small-text">• Patient Management</text>
+  <text x="560" y="205" text-anchor="middle" class="small-text">• Statistics</text>
+  
+  <!-- Admin Dashboard -->
+  <rect x="740" y="100" width="280" height="120" class="box" fill="#BBDEFB" rx="5"/>
+  <text x="880" y="125" text-anchor="middle" class="label-text" font-weight="bold">Admin Dashboard</text>
+  <text x="880" y="145" text-anchor="middle" class="small-text">• User Management</text>
+  <text x="880" y="165" text-anchor="middle" class="small-text">• Analytics</text>
+  <text x="880" y="185" text-anchor="middle" class="small-text">• Audit Logs</text>
+  <text x="880" y="205" text-anchor="middle" class="small-text">• Reports</text>
+  
+  <!-- React Frontend -->
+  <rect x="200" y="240" width="800" height="40" class="box" fill="#61DAFB" rx="5"/>
+  <text x="600" y="265" text-anchor="middle" class="label-text" font-weight="bold">
+    React Frontend (Vite) • Material-UI • Framer Motion • Axios • WebSocket
+  </text>
+  
+  <!-- Connection Arrow -->
+  <line x1="600" y1="280" x2="600" y2="310" class="arrow"/>
+  <text x="650" y="300" class="small-text">HTTPS / WebSocket</text>
+  
+  <!-- API GATEWAY LAYER -->
+  <rect x="50" y="320" width="1100" height="140" class="box gateway-box" rx="10"/>
+  <text x="600" y="345" text-anchor="middle" class="section-title">API GATEWAY LAYER</text>
+  <text x="600" y="365" text-anchor="middle" class="label-text" font-weight="bold">Spring Boot Backend</text>
+  
+  <!-- Security Filter -->
+  <rect x="150" y="380" width="900" height="60" class="box" fill="#FFE0B2" rx="5"/>
+  <text x="600" y="400" text-anchor="middle" class="label-text" font-weight="bold">Security Filter Chain</text>
+  <text x="600" y="420" text-anchor="middle" class="small-text">
+    JWT Authentication • CORS • Rate Limiting • CSRF Protection • Audit Logging
+  </text>
+  
+  <!-- Connection Arrow -->
+  <line x1="600" y1="460" x2="600" y2="490" class="arrow"/>
+  
+  <!-- CONTROLLER LAYER -->
+  <rect x="50" y="500" width="1100" height="120" class="box controller-box" rx="10"/>
+  <text x="600" y="525" text-anchor="middle" class="section-title">CONTROLLER LAYER (REST API)</text>
+  
+  <rect x="100" y="540" width="200" height="60" class="box" fill="#E1BEE7" rx="5"/>
+  <text x="200" y="560" text-anchor="middle" class="label-text">Auth Controller</text>
+  <text x="200" y="580" text-anchor="middle" class="small-text">Login • Register</text>
+  
+  <rect x="330" y="540" width="200" height="60" class="box" fill="#E1BEE7" rx="5"/>
+  <text x="430" y="560" text-anchor="middle" class="label-text">Doctor Controller</text>
+  <text x="430" y="580" text-anchor="middle" class="small-text">Search • Profile</text>
+  
+  <rect x="560" y="540" width="200" height="60" class="box" fill="#E1BEE7" rx="5"/>
+  <text x="660" y="560" text-anchor="middle" class="label-text">Appointment Controller</text>
+  <text x="660" y="580" text-anchor="middle" class="small-text">Book • Cancel</text>
+  
+  <rect x="790" y="540" width="200" height="60" class="box" fill="#E1BEE7" rx="5"/>
+  <text x="890" y="560" text-anchor="middle" class="label-text">Admin Controller</text>
+  <text x="890" y="580" text-anchor="middle" class="small-text">Manage • Export</text>
+  
+  <!-- Connection Arrow -->
+  <line x1="600" y1="620" x2="600" y2="650" class="arrow"/>
+  
+  <!-- SERVICE LAYER -->
+  <rect x="50" y="660" width="1100" height="180" class="box service-box" rx="10"/>
+  <text x="600" y="685" text-anchor="middle" class="section-title">SERVICE LAYER (Business Logic)</text>
+  
+  <rect x="80" y="700" width="180" height="50" class="box" fill="#C8E6C9" rx="5"/>
+  <text x="170" y="720" text-anchor="middle" class="small-text">Authentication</text>
+  <text x="170" y="738" text-anchor="middle" class="small-text">Service</text>
+  
+  <rect x="280" y="700" width="180" height="50" class="box" fill="#C8E6C9" rx="5"/>
+  <text x="370" y="720" text-anchor="middle" class="small-text">Doctor</text>
+  <text x="370" y="738" text-anchor="middle" class="small-text">Service</text>
+  
+  <rect x="480" y="700" width="180" height="50" class="box" fill="#C8E6C9" rx="5"/>
+  <text x="570" y="720" text-anchor="middle" class="small-text">Appointment</text>
+  <text x="570" y="738" text-anchor="middle" class="small-text">Service</text>
+  
+  <rect x="680" y="700" width="180" height="50" class="box" fill="#C8E6C9" rx="5"/>
+  <text x="770" y="720" text-anchor="middle" class="small-text">User</text>
+  <text x="770" y="738" text-anchor="middle" class="small-text">Service</text>
+  
+  <rect x="880" y="700" width="180" height="50" class="box" fill="#C8E6C9" rx="5"/>
+  <text x="970" y="720" text-anchor="middle" class="small-text">Analytics</text>
+  <text x="970" y="738" text-anchor="middle" class="small-text">Service</text>
+  
+  <rect x="180" y="770" width="180" height="50" class="box" fill="#C8E6C9" rx="5"/>
+  <text x="270" y="790" text-anchor="middle" class="small-text">Audit</text>
+  <text x="270" y="808" text-anchor="middle" class="small-text">Service</text>
+  
+  <rect x="380" y="770" width="180" height="50" class="box" fill="#C8E6C9" rx="5"/>
+  <text x="470" y="790" text-anchor="middle" class="small-text">Export</text>
+  <text x="470" y="808" text-anchor="middle" class="small-text">Service</text>
+  
+  <rect x="580" y="770" width="180" height="50" class="box" fill="#C8E6C9" rx="5"/>
+  <text x="670" y="790" text-anchor="middle" class="small-text">Notification</text>
+  <text x="670" y="808" text-anchor="middle" class="small-text">Service</text>
+  
+  <rect x="780" y="770" width="180" height="50" class="box" fill="#C8E6C9" rx="5"/>
+  <text x="870" y="790" text-anchor="middle" class="small-text">WebSocket</text>
+  <text x="870" y="808" text-anchor="middle" class="small-text">Service</text>
+  
+  <!-- Connection Arrow -->
+  <line x1="600" y1="840" x2="600" y2="870" class="arrow"/>
+  
+  <!-- REPOSITORY LAYER -->
+  <rect x="50" y="880" width="1100" height="120" class="box repo-box" rx="10"/>
+  <text x="600" y="905" text-anchor="middle" class="section-title">REPOSITORY LAYER (Spring Data JPA)</text>
+  
+  <rect x="100" y="920" width="200" height="60" class="box" fill="#FFF59D" rx="5"/>
+  <text x="200" y="945" text-anchor="middle" class="small-text">User Repository</text>
+  <text x="200" y="965" text-anchor="middle" class="small-text" font-size="10px">CRUD Operations</text>
+  
+  <rect x="330" y="920" width="200" height="60" class="box" fill="#FFF59D" rx="5"/>
+  <text x="430" y="945" text-anchor="middle" class="small-text">Doctor Repository</text>
+  <text x="430" y="965" text-anchor="middle" class="small-text" font-size="10px">CRUD Operations</text>
+  
+  <rect x="560" y="920" width="200" height="60" class="box" fill="#FFF59D" rx="5"/>
+  <text x="660" y="945" text-anchor="middle" class="small-text">Appointment Repo</text>
+  <text x="660" y="965" text-anchor="middle" class="small-text" font-size="10px">CRUD Operations</text>
+  
+  <rect x="790" y="920" width="200" height="60" class="box" fill="#FFF59D" rx="5"/>
+  <text x="890" y="945" text-anchor="middle" class="small-text">Audit Repository</text>
+  <text x="890" y="965" text-anchor="middle" class="small-text" font-size="10px">CRUD Operations</text>
+  
+  <!-- Connection Arrow -->
+  <line x1="600" y1="1000" x2="600" y2="1030" class="arrow"/>
+  <text x="650" y="1020" class="small-text">HikariCP Pool</text>
+  
+  <!-- DATABASE LAYER -->
+  <rect x="50" y="1040" width="1100" height="180" class="box db-box" rx="10"/>
+  <text x="600" y="1065" text-anchor="middle" class="section-title">DATABASE LAYER</text>
+  <text x="600" y="1090" text-anchor="middle" class="label-text" font-weight="bold">MySQL 8.0+ Database</text>
+  
+  <!-- Database Tables -->
+  <rect x="100" y="1110" width="950" height="90" class="box" fill="#FFCDD2" rx="5"/>
+  <text x="575" y="1135" text-anchor="middle" class="small-text" font-weight="bold">Core Tables:</text>
+  <text x="575" y="1155" text-anchor="middle" class="small-text">
+    users • doctors • appointments • doctor_availabilities • doctor_reviews
+  </text>
+  <text x="575" y="1175" text-anchor="middle" class="small-text">
+    doctor_credentials • doctor_statistics • audit_logs • notification_logs
+  </text>
+  
+  <!-- Side annotations -->
+  <rect x="1050" y="1110" width="100" height="40" class="box" fill="#FFE082" rx="3"/>
+  <text x="1100" y="1130" text-anchor="middle" class="small-text" font-size="10px">Indexed</text>
+  <text x="1100" y="1145" text-anchor="middle" class="small-text" font-size="10px">Optimized</text>
+  
+  <rect x="1050" y="1160" width="100" height="40" class="box" fill="#FFE082" rx="3"/>
+  <text x="1100" y="1180" text-anchor="middle" class="small-text" font-size="10px">Flyway</text>
+  <text x="1100" y="1195" text-anchor="middle" class="small-text" font-size="10px">Migrations</text>
+  
+  <!-- Legend -->
+  <text x="100" y="1270" class="small-text" font-weight="bold">Technology Stack:</text>
+  <text x="100" y="1290" class="small-text">Frontend: React 18 + Vite + Material-UI + Framer Motion</text>
+  <text x="100" y="1310" class="small-text">Backend: Spring Boot 3.2 + Spring Security + JWT + WebSocket</text>
+  <text x="100" y="1330" class="small-text">Database: MySQL 8.0 + Flyway + HikariCP</text>
+  <text x="100" y="1350" class="small-text">Monitoring: Actuator + Prometheus + Structured Logging</text>
+  
+  <text x="700" y="1270" class="small-text" font-weight="bold">Key Features:</text>
+  <text x="700" y="1290" class="small-text">✓ JWT Authentication</text>
+  <text x="700" y="1310" class="small-text">✓ Real-time Updates</text>
+  <text x="700" y="1330" class="small-text">✓ Role-based Access</text>
+  <text x="700" y="1350" class="small-text">✓ Audit Logging</text>
+  
+  <text x="900" y="1290" class="small-text">✓ Data Export</text>
+  <text x="900" y="1310" class="small-text">✓ Analytics</text>
+  <text x="900" y="1330" class="small-text">✓ Responsive UI</text>
+  <text x="900" y="1350" class="small-text">✓ Accessibility</text>
+</svg>

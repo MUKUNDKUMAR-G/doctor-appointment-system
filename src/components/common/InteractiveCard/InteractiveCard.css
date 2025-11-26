@@ -1,0 +1,107 @@
+.interactive-card {
+  position: relative;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  cursor: default;
+}
+
+/* Variants */
+.interactive-card--default {
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.interactive-card--glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.interactive-card--elevated {
+  background: white;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.interactive-card--outlined {
+  background: white;
+  border: 2px solid #e5e7eb;
+  box-shadow: none;
+}
+
+/* Padding */
+.interactive-card--padding-small {
+  padding: 12px;
+}
+
+.interactive-card--padding-medium {
+  padding: 20px;
+}
+
+.interactive-card--padding-large {
+  padding: 32px;
+}
+
+/* Clickable state */
+.interactive-card--clickable {
+  cursor: pointer;
+}
+
+.interactive-card--clickable:active {
+  transform: scale(0.98);
+}
+
+/* Hover effects */
+.interactive-card--hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.interactive-card--hover-scale:hover {
+  transform: scale(1.02);
+}
+
+.interactive-card--hover-glow:hover {
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+}
+
+/* Glow overlay */
+.interactive-card__glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at center,
+    rgba(99, 102, 241, 0.1) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Content */
+.interactive-card__content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Focus state */
+.interactive-card--clickable:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .interactive-card {
+    transition: none;
+  }
+  
+  .interactive-card--hover-lift:hover,
+  .interactive-card--hover-scale:hover {
+    transform: none;
+  }
+}

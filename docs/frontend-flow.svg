@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000">
+  <defs>
+    <style>
+      .box { fill: #fff; stroke: #333; stroke-width: 2; }
+      .title { font-family: Arial; font-size: 20px; font-weight: bold; fill: #1565C0; }
+      .label { font-family: Arial; font-size: 14px; font-weight: bold; fill: #333; }
+      .text { font-family: Arial; font-size: 12px; fill: #555; }
+      .arrow { stroke: #666; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#666" />
+    </marker>
+  </defs>
+  
+  <text x="400" y="30" text-anchor="middle" class="title">Frontend Application Flow</text>
+  <text x="400" y="50" text-anchor="middle" class="text">Appointment Booking Example</text>
+  
+  <!-- User Action -->
+  <rect x="250" y="80" width="300" height="60" class="box" fill="#E3F2FD" rx="5"/>
+  <text x="400" y="110" text-anchor="middle" class="label">User Action</text>
+  <text x="400" y="128" text-anchor="middle" class="text">Selects Doctor and Date/Time</text>
+  
+  <line x1="400" y1="140" x2="400" y2="180" class="arrow"/>
+  
+  <!-- React Component -->
+  <rect x="250" y="190" width="300" height="60" class="box" fill="#C5CAE9" rx="5"/>
+  <text x="400" y="220" text-anchor="middle" class="label">React Component</text>
+  <text x="400" y="238" text-anchor="middle" class="text">BookingWizard.jsx</text>
+  
+  <line x1="400" y1="250" x2="400" y2="290" class="arrow"/>
+  
+  <!-- Custom Hook -->
+  <rect x="250" y="300" width="300" height="60" class="box" fill="#9FA8DA" rx="5"/>
+  <text x="400" y="330" text-anchor="middle" class="label">Custom Hook</text>
+  <text x="400" y="348" text-anchor="middle" class="text">useAppointments()</text>
+  
+  <line x1="400" y1="360" x2="400" y2="400" class="arrow"/>
+  
+  <!-- API Service -->
+  <rect x="250" y="410" width="300" height="60" class="box" fill="#7986CB" rx="5"/>
+  <text x="400" y="440" text-anchor="middle" class="label">API Service</text>
+  <text x="400" y="458" text-anchor="middle" class="text">appointmentService.js</text>
+  
+  <line x1="400" y1="470" x2="400" y2="510" class="arrow"/>
+  
+  <!-- Backend -->
+  <rect x="250" y="520" width="300" height="60" class="box" fill="#5C6BC0" rx="5"/>
+  <text x="400" y="550" text-anchor="middle" class="label" fill="#fff">Spring Boot Backend</text>
+  <text x="400" y="568" text-anchor="middle" class="text" fill="#fff">AppointmentController</text>
+  
+  <line x1="400" y1="580" x2="400" y2="620" class="arrow"/>
+  
+  <!-- Response -->
+  <rect x="250" y="630" width="300" height="60" class="box" fill="#7986CB" rx="5"/>
+  <text x="400" y="660" text-anchor="middle" class="label">Response Handling</text>
+  <text x="400" y="678" text-anchor="middle" class="text">Success: 200 OK</text>
+  
+  <line x1="400" y1="690" x2="400" y2="730" class="arrow"/>
+  
+  <!-- State Update -->
+  <rect x="250" y="740" width="300" height="60" class="box" fill="#B2DFDB" rx="5"/>
+  <text x="400" y="770" text-anchor="middle" class="label">State Update</text>
+  <text x="400" y="788" text-anchor="middle" class="text">setAppointment(data)</text>
+  
+  <line x1="400" y1="800" x2="400" y2="840" class="arrow"/>
+  
+  <!-- UI Update -->
+  <rect x="250" y="850" width="300" height="60" class="box" fill="#80CBC4" rx="5"/>
+  <text x="400" y="880" text-anchor="middle" class="label">UI Re-render</text>
+  <text x="400" y="898" text-anchor="middle" class="text">Show success animation</text>
+  
+  <line x1="400" y1="910" x2="400" y2="950" class="arrow"/>
+  
+  <!-- User Feedback -->
+  <rect x="250" y="960" width="300" height="40" class="box" fill="#E3F2FD" rx="5"/>
+  <text x="400" y="985" text-anchor="middle" class="label">User Feedback</text>
+</svg>

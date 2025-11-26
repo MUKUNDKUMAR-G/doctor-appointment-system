@@ -1,0 +1,128 @@
+.interactive-icon-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+  background: transparent;
+}
+
+/* Sizes */
+.interactive-icon-button--small {
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+}
+
+.interactive-icon-button--medium {
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+}
+
+.interactive-icon-button--large {
+  width: 48px;
+  height: 48px;
+  font-size: 24px;
+}
+
+/* Variants */
+.interactive-icon-button--default {
+  color: #6b7280;
+  background: #f3f4f6;
+}
+
+.interactive-icon-button--default:hover:not(:disabled) {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.interactive-icon-button--primary {
+  color: white;
+  background: #6366f1;
+}
+
+.interactive-icon-button--primary:hover:not(:disabled) {
+  background: #4f46e5;
+}
+
+.interactive-icon-button--danger {
+  color: white;
+  background: #ef4444;
+}
+
+.interactive-icon-button--danger:hover:not(:disabled) {
+  background: #dc2626;
+}
+
+.interactive-icon-button--ghost {
+  color: #6b7280;
+  background: transparent;
+}
+
+.interactive-icon-button--ghost:hover:not(:disabled) {
+  background: rgba(0, 0, 0, 0.05);
+  color: #374151;
+}
+
+/* States */
+.interactive-icon-button--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Focus state */
+.interactive-icon-button:focus-visible {
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+}
+
+/* Icon */
+.interactive-icon-button__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Tooltip */
+.interactive-icon-button__tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  font-size: 12px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 1000;
+}
+
+.interactive-icon-button__tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 4px solid transparent;
+  border-top-color: rgba(0, 0, 0, 0.8);
+}
+
+.interactive-icon-button:hover .interactive-icon-button__tooltip {
+  opacity: 1;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .interactive-icon-button {
+    transition: none;
+  }
+}
